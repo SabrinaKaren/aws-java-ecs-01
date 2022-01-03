@@ -1,5 +1,6 @@
 FROM openjdk:11
 VOLUME /tmp
+EXPOSE 9000
 ARG DEPENDENCY=target/dependency
 COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY ${DEPENDENCY}/META-INF /app/META-INF
