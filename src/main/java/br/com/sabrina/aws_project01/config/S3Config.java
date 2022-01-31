@@ -1,34 +1,24 @@
 package br.com.sabrina.aws_project01.config;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
-import com.amazonaws.services.sns.AmazonSNS;
-import com.amazonaws.services.sns.AmazonSNSClientBuilder;
-import com.amazonaws.services.sns.model.Topic;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SnsConfig {
+public class S3Config {
 
     @Value("${aws.region}")
     private String awsRegion;
 
-    @Value("${aws.sns.topic.product.events.arn}")
-    private String productEventsTopic;
-
     @Bean
-    public AmazonSNS snsClient() {
-        return AmazonSNSClientBuilder.standard()
+    public AmazonS3 amazonS3Client() {
+        return AmazonS3ClientBuilder.standard()
                 .withRegion(awsRegion)
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .build();
     }
-
-    @Bean(name="productEventsTopic")
-    public Topic snsProductEventsTopic() {
-        return new Topic().withTopicArn(productEventsTopic);
-    }
-
     
 }
